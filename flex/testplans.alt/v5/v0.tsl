@@ -1,0 +1,134 @@
+# Test Specification for flex command
+#flex-2.4.3
+#modified by Amit Goel 8,August,2001
+# made output file : on from error to single
+
+Parameters:
+	
+	Input file name:
+		good file name.			
+		no file with this name.		[error]
+		
+	Backing up:			# -b
+		Backup_on.				[property BackUp][single]	
+		Backup_off.				[property NoBackUp]
+
+	Help:				# -h
+		Help_on.				[single]
+		Help_off.
+
+	Case-insensitive:		# -i
+		CaseInsen_on.				[single]
+		CaseInsen_off.
+
+	Default rule:			# -s
+		DefaultRule_on.				[single]
+		DefaultRule_off.
+
+	Standard output:		# -t
+		Stdout_on.				[single]
+		Stdout_off.
+
+	Statistics:			# -v
+		Statistics_on.				[single]
+		Statistics_off.
+
+	Warning message:		# -w
+		Warn_on.				[single]
+		Warn_off.
+
+	Batch scanner:			# -B
+		Batch_on.				[single]
+		Batch_off.
+
+	No line directives:		# -L
+		NoLine_on.				[single]
+		NoLine_off.
+
+	Trace mode:			# -T
+		Trace_on.				[single]
+		Trace_off.
+
+	Print version number:		# -V
+		Version_on.				[single]
+		Version_off.
+	
+	7-bit scanner:			# -7
+		7bit_on.				[single]
+		7bit_off.
+
+	Prefix:				# -Pprefix 
+		Prefix_on.				[single]
+		Prefix_off.
+
+	Debug mode:			# -d
+		Debug_on.
+		Debug_off.
+
+	Bypass use:			# -Cr
+		Bypass_on.				[property Bypass]
+		Bypass_off.
+
+	Fast scanner:			# -f, -Cf
+		FastScan_on.			[property FastScan]
+		FullScan_on.			[if !Bypass][property FullScan]
+		FastScan_off.				[property f&Cfoff]
+
+	Fast scanner with table:	# -F, -CF
+		FastScanTable_on.			[if f&Cfoff][property FastScanTable]
+		AltFast_on.			[if f&Cfoff && !Bypass][property AltFast]		
+		FastScanTable_off.				[property F&CFoff]
+
+	Align:				# -Ca, -Cfa, -CFa
+		Align_on.				[if !FullScan && !AltFast][property Align]		
+		Align_off.
+
+	Equivalence classes:		# -Ce, -Cfe, -CFe
+		EquiClass_on.			[if !FullScan && !AltFast][property EquiClass]			
+		EquiClass_off.
+	
+	Meta-equivalence classes:	# -Cm
+		MetaEq_on.		[if f&Cfoff && F&CFoff][property MetaEq]
+		MetaEq_off.
+
+	8-bit scanner:			# -8
+		FullScan_on.			[if FullScan][single] # -Cf
+		AltFast_on.			[if AltFast][single]  # -CF
+		8bit_off.
+
+	Compatibility with AT&T lex:	# -l 
+		ATnTCompat_on.			[if F&CFoff && f&Cfoff] 
+		ATnTCompat_off.			
+		
+	Output file:			# -ooutput
+		Output_on.			[property Output][single]
+		Output_off.
+
+	Performance report:		# -p
+		fast_FullScan_on.		[if NoBackUp && FullScan][single] # -Cf
+		fast_AltFast_on.		[if NoBackUp && AltFast][single]  # -CF
+		slow_BackUp_on.		[if BackUp][single]   # -b
+		slow_Compress_on.		[single] # -C
+		PerfReport_off.				
+
+Environments:
+
+	Format of input file:
+		General.
+		WithoutRule.			[single]
+
+	Definitions:
+		PatternIndented.		[error]
+		Match.
+		ErrInDef.			[error]
+
+	Rules:
+		Match.
+		ErrInRule.			[error]
+
+	Patterns:
+		Character_Range.			[single]
+		Character_Expression.			[single]
+		Closure.			[single]
+		Expression.			[single]
+		All.	
